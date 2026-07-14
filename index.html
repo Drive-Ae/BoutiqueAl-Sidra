@@ -523,10 +523,28 @@ function startAutoplay() {
 
 function resetAutoplay() {
   clearInterval(timer);
-  startAutoplay();
+  if (!isPaused) startAutoplay();
+}
+
+function togglePause() {
+  isPaused = !isPaused;
+  const btn = document.getElementById('pauseBtn');
+  const bar = document.getElementById('progress');
+  if (isPaused) {
+    clearInterval(timer);
+    const currentWidth = getComputedStyle(bar).width;
+    bar.style.transition = 'none';
+    bar.style.width = currentWidth;
+    btn.innerHTML = '&#9654;';
+  } else {
+    btn.innerHTML = '&#10074;&#10074;';
+    startAutoplay();
+    startProgress();
+  }
 }
 
 function startProgress() {
+  if (isPaused) return;
   const bar = document.getElementById('progress');
   bar.style.transition = 'none';
   bar.style.width = '0%';
