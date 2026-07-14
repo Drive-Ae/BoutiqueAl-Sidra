@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boutique Al-Sidra</title>
+<style>
+
+  :root {
+    --cream:     #FAF5EE;
+    --warm-white:#FDF9F4;
+    --gold:      #C49A3C;
+    --gold-soft: #E8C97A;
+    --gold-pale: #F5E9C8;
+    --rose:      #C2737A;
+    --rose-soft: #E8A8AD;
+    --rose-pale: #F7E4E5;
+    --dark:      #2C1810;
+    --mid:       #7A5C4A;
+    --light:     #B8967A;
+    --white:     #FFFFFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Georgia', serif;
+    background: var(--cream);
+    color: var(--dark);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .top-stripe {
+    background: var(--gold);
+    text-align: center;
+    padding: 8px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    text-transform: uppercase;
+    font-family: 'Arial', sans-serif;
+  }
+
+  header {
+    background: var(--warm-white);
+    text-align: center;
+    padding: 2.5rem 1rem 2rem;
+    border-bottom: 1px solid var(--gold-pale);
+  }
+
+  .brand-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .ornament-line {
+    flex: 1;
+    max-width: 120px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold));
+  }
+
+  .ornament-line.right {
+    background: linear-gradient(to left, transparent, var(--gold));
+  }
+
+  .ornament-diamond {
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  .brand-name {
+    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-soft) 40%, var(--rose) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .brand-script {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--mid);
+    letter-spacing: 0.04em;
+    font-style: italic;
+    margin-top: 0.4rem;
+  }
+
+  .brand-tagline {
+    margin-top: 0.8rem;
+    font-size: clamp(0.75rem, 2vw, 0.9rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--light);
+    font-family: 'Arial', sans-serif;
+  }
+
+  .slider-section {
+    padding: 2.5rem 1rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .slider-label {
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--light);
+    margin-bottom: 1.2rem;
+    font-family: 'Arial', sans-serif;
+  }
+
+  .slider-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/3;
+    max-height: 520px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(44,24,16,0.06), 0 20px 60px rgba(44,24,16,0.12), inset 0 0 0 1px rgba(196,154,60,0.2);
+    background: var(--gold-pale);
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    background: var(--cream);
+  }
+
+  .slide.active { opacity: 1; }
+
+  .slide-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--gold-pale), var(--rose-pale));
+    color: var(--mid);
+    gap: 1rem;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  .slide-placeholder .icon { font-size: 3rem; }
+  .slide-placeholder h3 { font-size: 1.1rem; color: var(--dark); font-weight: 600; }
+  .slide-placeholder p { font-size: 13px; color: var(--mid); font-family: 'Arial', sans-serif; line-height: 1.6; max-width: 300px; }
+  .slide-placeholder code { background: rgba(196,154,60,0.15); padding: 2px 6px; border-radius: 4px; font-size: 12px; color: var(--gold); }
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.92);
+    color: var(--dark);
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 12px rgba(44,24,16,0.15);
+    transition: all 0.2s;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+    line-height: 1;
+  }
+
+  .arrow:hover { background: var(--gold); color: var(--white); transform: translateY(-50%) scale(1.08); }
+  .arrow.left  { left:  14px; }
+  .arrow.right { right: 14px; }
+
+  .dots { display: flex; justify-content: center; gap: 8px; margin-top: 1.2rem; }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--gold-soft);
+    cursor: pointer;
+    transition: all 0.25s;
+    border: none;
+    padding: 0;
+  }
+
+  .dot.active { background: var(--gold); transform: scale(1.3); }
+
+  .product-code {
+    position: absolute;
+    bottom: 12px;
+    left: 14px;
+    background: rgba(196,154,60,0.92);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.08em;
+    backdrop-filter: blur(4px);
+    z-index: 10;
+  }
+
+  .slide-counter {
+    position: absolute;
+    bottom: 12px;
+    right: 14px;
+    background: rgba(44,24,16,0.55);
+    color: var(--white);
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(4px);
+    z-index: 10;
+  }
+
+  .progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background: var(--gold);
+    width: 0%;
+    z-index: 10;
+    transition: width linear;
+  }
+
+  .cta-section { text-align: center; padding: 1rem 1rem 2rem; }
+
+  .wa-btn {
+    display: inline-block;
+    background: #25D366;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 11px 28px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.03em;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+    transition: all 0.2s;
+  }
+
+  .wa-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(37,211,102,0.45); background: #20ba59; }
+
+  footer {
+    background: var(--dark);
+    text-align: center;
+    padding: 1.2rem;
+    font-size: 12px;
+    color: var(--light);
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 0.08em;
+  }
+
+  footer span { color: var(--gold-soft); }
+
+  @media (max-width: 500px) {
+    .arrow { width: 36px; height: 36px; font-size: 16px; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="top-stripe">New Collection Available — Chat with us on WhatsApp</div>
+
+<header>
+  <div class="brand-ornament">
+    <div class="ornament-line"></div>
+    <div class="ornament-diamond"></div>
+    <div class="ornament-line right"></div>
+  </div>
+  <h1 class="brand-name">Boutique Al-Sidra</h1>
+  <p class="brand-script">since 2024</p>
+  <p class="brand-tagline">Children &amp; Ladies Ready Made Garments</p>
+</header>
+
+<div class="slider-section">
+  <p class="slider-label">Our Collection</p>
+
+  <div class="slider-wrap" id="slider">
+
+    <!--
+    =====================================================
+    HOW TO ADD YOUR PHOTOS:
+
+    1. Save your image files in the SAME folder as this HTML file
+    2. Add a line like this for each image (copy and paste):
+
+       <img class="slide" src="photo1.jpg" alt="Collection" />
+
+    3. Supported: .jpg  .jpeg  .png  .webp
+    4. You can add as many images as you want!
+
+    EXAMPLE (remove the -- to activate):
+    <img class="slide" src="dress1.jpg" alt="Ladies Collection" />
+    <img class="slide" src="kids1.jpg"  alt="Kids Collection" />
+    <img class="slide" src="suit1.jpg"  alt="Ladies Suit" />
+    =====================================================
+    -->
+
+    <img class="slide" src="Dress1.jpeg" alt="Ladies Collection" data-code="SID-1001" />
+<img class="slide" src="Dress2.jpeg" alt="Kids Collection"   data-code="SID-1002" />
+<img class="slide" src="Dress3.jpeg" alt="Kids Collection"   data-code="SID-1003" />
+<img class="slide" src="Dress4.jpeg" alt="Kids Collection"   data-code="SID-1004" />
+<img class="slide" src="Dress5.jpeg" alt="Kids Collection"   data-code="SID-1005" />
+
+    <div class="slide-placeholder" id="placeholder">
+      <div class="icon">👗</div>
+      <h3>Add Your Collection Photos</h3>
+      <p>Put your images in the same folder as this file, then add:<br/><br/>
+      <code>&lt;img class="slide" src="photo.jpg" /&gt;</code><br/><br/>
+      inside the slider section in the code.</p>
+    </div>
+
+    <button class="arrow left"  onclick="prevSlide()">&#8249;</button>
+    <button class="arrow right" onclick="nextSlide()">&#8250;</button>
+    <div class="slide-counter" id="counter" style="display:none">1 / 1</div>
+    <div class="progress-bar" id="progress"></div>
+  </div>
+
+  <div class="dots" id="dots"></div>
+</div>
+
+<div class="cta-section">
+  <a class="wa-btn" href="https://wa.me/923182626815" target="_blank">&#9742; Chat with us on WhatsApp</a>
+</div>
+
+<footer>
+  <span>Boutique Al-Sidra</span> &nbsp;·&nbsp; Children &amp; Ladies Garments &nbsp;·&nbsp; All Rights Reserved
+</footer>
+
+<script>
+
+const AUTOPLAY_SECONDS = 4;
+
+let slides  = [];
+let current = 0;
+let timer   = null;
+
+function init() {
+  slides = Array.from(document.querySelectorAll('.slide'));
+
+  if (slides.length === 0) {
+    document.getElementById('placeholder').style.display = 'flex';
+    document.querySelector('.arrow.left').style.display  = 'none';
+    document.querySelector('.arrow.right').style.display = 'none';
+    return;
+  }
+
+  const ph = document.getElementById('placeholder');
+  if (ph) ph.style.display = 'none';
+
+  const dotsEl = document.getElementById('dots');
+  slides.forEach((_, i) => {
+    const d    = document.createElement('button');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick   = () => { goTo(i); resetAutoplay(); };
+    dotsEl.appendChild(d);
+  });
+
+  document.getElementById('counter').style.display = 'block';
+  goTo(0);
+  startAutoplay();
+}
+
+function goTo(index) {
+  slides[current].classList.remove('active');
+  current = (index + slides.length) % slides.length;
+  slides[current].classList.add('active');
+
+  document.querySelectorAll('.dot').forEach((d, i) => {
+    d.classList.toggle('active', i === current);
+  });
+
+  document.getElementById('counter').textContent = (current + 1) + ' / ' + slides.length;
+
+  // Show product code
+  let codeEl = document.getElementById('product-code');
+  if (!codeEl) {
+    codeEl = document.createElement('div');
+    codeEl.id        = 'product-code';
+    codeEl.className = 'product-code';
+    document.getElementById('slider').appendChild(codeEl);
+  }
+  const code = slides[current].getAttribute('data-code');
+  codeEl.textContent = code ? '🏷️ ' + code : '';
+  codeEl.style.display = code ? 'block' : 'none';
+
+  startProgress();
+}
+
+function nextSlide() { goTo(current + 1); resetAutoplay(); }
+function prevSlide() { goTo(current - 1); resetAutoplay(); }
+
+function startAutoplay() {
+  timer = setInterval(() => goTo(current + 1), AUTOPLAY_SECONDS * 1000);
+}
+
+function resetAutoplay() {
+  clearInterval(timer);
+  startAutoplay();
+}
+
+function startProgress() {
+  const bar = document.getElementById('progress');
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  setTimeout(() => {
+    bar.style.transition = 'width ' + AUTOPLAY_SECONDS + 's linear';
+    bar.style.width = '100%';
+  }, 30);
+}
+
+// Mobile swipe
+let touchStartX = 0;
+document.getElementById('slider').addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+});
+document.getElementById('slider').addEventListener('touchend', e => {
+  const diff = touchStartX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 40) { diff > 0 ? nextSlide() : prevSlide(); }
+});
+
+window.addEventListener('load', init);
+
+</script>
+</body>
+</html>
