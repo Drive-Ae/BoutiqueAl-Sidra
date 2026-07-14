@@ -274,7 +274,7 @@
     justify-content: center;
     gap: 12px;
     max-width: 900px;
-    margin: 0 auto;
+    margin: 1.4rem auto 0;
     padding: 0 1rem;
   }
 
@@ -343,28 +343,29 @@
 
     <!--
     =====================================================
-    HOW TO ADD YOUR PHOTOS:
+    HOW TO ADD / EDIT PHOTOS & PRICES:
 
     1. Save your image files in the SAME folder as this HTML file
     2. Add a line like this for each image (copy and paste):
 
-       <img class="slide" src="photo1.jpg" alt="Collection" />
+       <img class="slide" src="photo1.jpg" alt="Collection" data-code="SID-1006" data-aed="110" />
 
-    3. Supported: .jpg  .jpeg  .png  .webp
-    4. You can add as many images as you want!
-
-    EXAMPLE (remove the -- to activate):
-    <img class="slide" src="dress1.jpg" alt="Ladies Collection" />
-    <img class="slide" src="kids1.jpg"  alt="Kids Collection" />
-    <img class="slide" src="suit1.jpg"  alt="Ladies Suit" />
+    3. Supported image types: .jpg  .jpeg  .png  .webp
+    4. data-aed = the price of THAT product in AED only.
+       The RS price is calculated automatically using the
+       exchange rate set in the <script> at the bottom
+       (search for EXCHANGE_RATE). You never need to type
+       the RS price by hand.
+    5. You can add as many images/products as you want —
+       just keep increasing the data-code number.
     =====================================================
     -->
 
-    <img class="slide" src="Dress1.jpeg" alt="Ladies Collection" data-code="SID-1001" />
-<img class="slide" src="Dress2.jpeg" alt="Kids Collection"   data-code="SID-1002" />
-<img class="slide" src="Dress3.jpeg" alt="Kids Collection"   data-code="SID-1003" />
-<img class="slide" src="Dress4.jpeg" alt="Kids Collection"   data-code="SID-1004" />
-<img class="slide" src="Dress5.jpeg" alt="Kids Collection"   data-code="SID-1005" />
+    <img class="slide" src="Dress1.jpeg" alt="Ladies Collection" data-code="SID-1001" data-aed="150" />
+<img class="slide" src="Dress2.jpeg" alt="Kids Collection"   data-code="SID-1002" data-aed="75" />
+<img class="slide" src="Dress3.jpeg" alt="Kids Collection"   data-code="SID-1003" data-aed="100" />
+<img class="slide" src="Dress4.jpeg" alt="Kids Collection"   data-code="SID-1004" data-aed="120" />
+<img class="slide" src="Dress5.jpeg" alt="Kids Collection"   data-code="SID-1005" data-aed="90" />
 
     <div class="slide-placeholder" id="placeholder">
       <div class="icon">👗</div>
@@ -382,9 +383,9 @@
 
   <div class="dots" id="dots"></div>
 
-  <div class="price-row">
-    <div class="price-btn"><span class="price-label">Rs</span> 4000</div>
-    <div class="price-btn"><span class="price-label">AED</span> 200</div>
+  <div class="price-row" id="priceRow" style="display:none">
+    <div class="price-btn"><span class="price-label">Rs</span>&nbsp;<span id="priceRs">0</span></div>
+    <div class="price-btn"><span class="price-label">AED</span>&nbsp;<span id="priceAed">0</span></div>
   </div>
 </div>
 
@@ -405,6 +406,13 @@
 <script>
 
 const AUTOPLAY_SECONDS = 4;
+
+// =====================================================
+// EXCHANGE RATE — edit this ONE number whenever the
+// AED to Rupee rate changes. Every product's RS price
+// is calculated automatically from its AED price above.
+// =====================================================
+const EXCHANGE_RATE = 74; // 1 AED = 74 RS
 
 let slides  = [];
 let current = 0;
@@ -458,6 +466,18 @@ function goTo(index) {
   const code = slides[current].getAttribute('data-code');
   codeEl.textContent = code ? '🏷️ ' + code : '';
   codeEl.style.display = code ? 'block' : 'none';
+
+  // Update price badges for this product
+  const aed = parseFloat(slides[current].getAttribute('data-aed'));
+  const priceRow = document.getElementById('priceRow');
+  if (!isNaN(aed)) {
+    const rs = Math.round(aed * EXCHANGE_RATE);
+    document.getElementById('priceAed').textContent = aed;
+    document.getElementById('priceRs').textContent = rs.toLocaleString('en-IN');
+    priceRow.style.display = 'flex';
+  } else {
+    priceRow.style.display = 'none';
+  }
 
   startProgress();
 }
