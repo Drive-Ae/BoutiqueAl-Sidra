@@ -538,11 +538,6 @@ function goTo(index) {
   }
 
   startProgress();
-  {function pulseLogo() {
-  const logo = document.getElementById('logoOverlay');
-  logo.classList.add('show');
-  clearTimeout(logo._hideTimer);
-  logo._hideTimer = setTimeout(() => logo.classList.remove('show'), 1300);
 }
 
 function nextSlide() { goTo(current + 1); resetAutoplay(); }
