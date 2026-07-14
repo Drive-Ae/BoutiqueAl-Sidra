@@ -430,12 +430,13 @@
       inside the slider section in the code.</p>
     </div>
 
-    <button class="arrow left"  onclick="prevSlide()">&#8249;</button>
-    <button class="arrow right" onclick="nextSlide()">&#8250;</button>
-    <button class="pause-btn" id="pauseBtn" onclick="togglePause()">&#10074;&#10074;</button>
+   <button class="arrow left"  onclick="sliderKids.prevSlide()">&#8249;</button>
+    <button class="arrow right" onclick="sliderKids.nextSlide()">&#8250;</button>
+    <button class="pause-btn" id="pauseBtn" onclick="sliderKids.togglePause()">&#10074;&#10074;</button>
     <div class="slide-counter" id="counter" style="display:none">1 / 1</div>
     <div class="progress-bar" id="progress"></div>
     <div class="logo-overlay" id="logoOverlay"><img src="logo.png" alt="Logo" /></div>
+    <div class="product-code" id="productCode" style="display:none"></div>
   </div>
 
   <div class="dots" id="dots"></div>
@@ -456,6 +457,62 @@
   </a>
 </div>
 
+<div class="slider-section">
+  <p class="slider-label">Ladies Collection</p>
+
+  <div class="slider-wrap" id="slider2">
+
+    <!--
+    =====================================================
+    ADD LADIES GARMENT PHOTOS HERE (same pattern as above):
+
+       <img class="slide" src="Lady1.jpeg" alt="Ladies Collection" data-code="SID-2001" data-aed="130" />
+
+    Upload each ladies photo to the same repo folder, then
+    add one line per photo below. Keep increasing the
+    data-code number (SID-2001, SID-2002, SID-2003...).
+    =====================================================
+    -->
+
+    <img class="slide" src="Lady1.jpeg" alt="Ladies Collection" data-code="SID-2001" data-aed="130" />
+    <img class="slide" src="Lady2.jpeg" alt="Ladies Collection" data-code="SID-2002" data-aed="150" />
+    <img class="slide" src="Lady3.jpeg" alt="Ladies Collection" data-code="SID-2003" data-aed="140" />
+
+    <div class="slide-placeholder" id="placeholder2">
+      <div class="icon">👗</div>
+      <h3>Add Ladies Collection Photos</h3>
+      <p>Put your images in the same folder as this file, then add:<br/><br/>
+      <code>&lt;img class="slide" src="lady1.jpg" /&gt;</code><br/><br/>
+      inside this second slider section in the code.</p>
+    </div>
+
+    <button class="arrow left"  onclick="sliderLadies.prevSlide()">&#8249;</button>
+    <button class="arrow right" onclick="sliderLadies.nextSlide()">&#8250;</button>
+    <button class="pause-btn" id="pauseBtn2" onclick="sliderLadies.togglePause()">&#10074;&#10074;</button>
+    <div class="slide-counter" id="counter2" style="display:none">1 / 1</div>
+    <div class="progress-bar" id="progress2"></div>
+    <div class="logo-overlay" id="logoOverlay2"><img src="logo.png" alt="Logo" /></div>
+    <div class="product-code" id="productCode2" style="display:none"></div>
+  </div>
+
+  <div class="dots" id="dots2"></div>
+
+  <div class="price-row" id="priceRow2" style="display:none">
+    <div class="price-btn"><span class="price-label">Rs</span>&nbsp;<span id="priceRs2">0</span></div>
+    <div class="price-btn"><span class="price-label">AED</span>&nbsp;<span id="priceAed2">0</span></div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <a class="wa-btn" href="https://wa.me/923328513653" target="_blank">
+    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12.004 2.003c-5.522 0-10 4.478-10 10 0 1.764.464 3.42 1.276 4.855L2 22l5.29-1.253a9.958 9.958 0 0 0 4.714 1.198h.004c5.522 0 10-4.478 10-10s-4.478-9.942-10.004-9.942zm5.83 15.775a8.28 8.28 0 0 1-5.83 2.386 8.29 8.29 0 0 1-4.212-1.145l-.302-.18-3.14.744.752-3.11-.196-.318a8.246 8.246 0 0 1-1.256-4.4c0-4.575 3.723-8.297 8.334-8.297a8.28 8.28 0 0 1 5.85 2.427 8.24 8.24 0 0 1 2.427 5.85 8.29 8.29 0 0 1-2.427 5.043z"/>
+    </svg>
+    Chat with us on WhatsApp
+  </a>
+</div>
+
 <footer>
   <span>Boutique Al-Sidra</span> &nbsp;·&nbsp; Children &amp; Ladies Garments &nbsp;·&nbsp; All Rights Reserved
 </footer>
@@ -463,142 +520,154 @@
 <script>
 
 const AUTOPLAY_SECONDS = 4;
+const EXCHANGE_RATE = 74; // 1 AED = 74 RS — edit this ONE number to update all prices everywhere
 
-// =====================================================
-// EXCHANGE RATE — edit this ONE number whenever the
-// AED to Rupee rate changes. Every product's RS price
-// is calculated automatically from its AED price above.
-// =====================================================
-const EXCHANGE_RATE = 74; // 1 AED = 74 RS
+function createSlider(cfg) {
+  const state = { slides: [], current: 0, timer: null, isPaused: false };
 
-let slides  = [];
-let current = 0;
-let timer   = null;
-let isPaused = false;
+  const sliderEl      = document.getElementById(cfg.sliderId);
+  const dotsEl         = document.getElementById(cfg.dotsId);
+  const counterEl      = document.getElementById(cfg.counterId);
+  const progressEl     = document.getElementById(cfg.progressId);
+  const logoEl         = document.getElementById(cfg.logoId);
+  const priceRowEl     = document.getElementById(cfg.priceRowId);
+  const priceRsEl      = document.getElementById(cfg.priceRsId);
+  const priceAedEl     = document.getElementById(cfg.priceAedId);
+  const pauseBtn       = document.getElementById(cfg.pauseBtnId);
+  const codeEl         = document.getElementById(cfg.codeId);
+  const placeholderEl  = document.getElementById(cfg.placeholderId);
+  const leftArrow      = sliderEl.querySelector('.arrow.left');
+  const rightArrow     = sliderEl.querySelector('.arrow.right');
 
-function init() {
-  slides = Array.from(document.querySelectorAll('.slide'));
+  function init() {
+    state.slides = Array.from(sliderEl.querySelectorAll('.slide'));
 
-  if (slides.length === 0) {
-    document.getElementById('placeholder').style.display = 'flex';
-    document.querySelector('.arrow.left').style.display  = 'none';
-    document.querySelector('.arrow.right').style.display = 'none';
-    return;
-  }
+    if (state.slides.length === 0) {
+      if (placeholderEl) placeholderEl.style.display = 'flex';
+      if (leftArrow) leftArrow.style.display = 'none';
+      if (rightArrow) rightArrow.style.display = 'none';
+      if (pauseBtn) pauseBtn.style.display = 'none';
+      return;
+    }
 
-  const ph = document.getElementById('placeholder');
-  if (ph) ph.style.display = 'none';
+    if (placeholderEl) placeholderEl.style.display = 'none';
 
-  const dotsEl = document.getElementById('dots');
-  slides.forEach((_, i) => {
-    const d    = document.createElement('button');
-    d.className = 'dot' + (i === 0 ? ' active' : '');
-    d.onclick   = () => { goTo(i); resetAutoplay(); };
-    dotsEl.appendChild(d);
-  });
+    state.slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.onclick = () => { goTo(i); resetAutoplay(); };
+      dotsEl.appendChild(d);
+    });
 
-  document.getElementById('counter').style.display = 'block';
-  goTo(0);
-  startAutoplay();
-}
-
-function goTo(index) {
-  slides[current].classList.remove('active');
-  current = (index + slides.length) % slides.length;
-  slides[current].classList.add('active');
-
-  document.querySelectorAll('.dot').forEach((d, i) => {
-    d.classList.toggle('active', i === current);
-  });
-
-  document.getElementById('counter').textContent = (current + 1) + ' / ' + slides.length;
-
-  // Show product code
-  let codeEl = document.getElementById('product-code');
-  if (!codeEl) {
-    codeEl = document.createElement('div');
-    codeEl.id        = 'product-code';
-    codeEl.className = 'product-code';
-    document.getElementById('slider').appendChild(codeEl);
-  }
-  const code = slides[current].getAttribute('data-code');
-  codeEl.textContent = code ? '🏷️ ' + code : '';
-  codeEl.style.display = code ? 'block' : 'none';
-
-  // Update price badges for this product
-  const aed = parseFloat(slides[current].getAttribute('data-aed'));
-  const priceRow = document.getElementById('priceRow');
-  if (!isNaN(aed)) {
-    const rs = Math.round(aed * EXCHANGE_RATE);
-    document.getElementById('priceAed').textContent = aed;
-    document.getElementById('priceRs').textContent = rs.toLocaleString('en-IN');
-    priceRow.style.display = 'flex';
-  } else {
-    priceRow.style.display = 'none';
-  }
-
-  startProgress();
-     pulseLogo();
-   }
-
-   function pulseLogo() {
-     const logo = document.getElementById('logoOverlay');
-     logo.classList.add('show');
-     clearTimeout(logo._hideTimer);
-     logo._hideTimer = setTimeout(() => logo.classList.remove('show'), 1300);
-   }
-
-function nextSlide() { goTo(current + 1); resetAutoplay(); }
-function prevSlide() { goTo(current - 1); resetAutoplay(); }
-
-function startAutoplay() {
-  timer = setInterval(() => goTo(current + 1), AUTOPLAY_SECONDS * 1000);
-}
-
-function resetAutoplay() {
-  clearInterval(timer);
-  if (!isPaused) startAutoplay();
-}
-
-function togglePause() {
-  isPaused = !isPaused;
-  const btn = document.getElementById('pauseBtn');
-  const bar = document.getElementById('progress');
-  if (isPaused) {
-    clearInterval(timer);
-    const currentWidth = getComputedStyle(bar).width;
-    bar.style.transition = 'none';
-    bar.style.width = currentWidth;
-    btn.innerHTML = '&#9654;';
-  } else {
-    btn.innerHTML = '&#10074;&#10074;';
+    if (counterEl) counterEl.style.display = 'block';
+    goTo(0);
     startAutoplay();
-    startProgress();
   }
+
+  function goTo(index) {
+    state.slides[state.current].classList.remove('active');
+    state.current = (index + state.slides.length) % state.slides.length;
+    state.slides[state.current].classList.add('active');
+
+    dotsEl.querySelectorAll('.dot').forEach((d, i) => {
+      d.classList.toggle('active', i === state.current);
+    });
+
+    if (counterEl) counterEl.textContent = (state.current + 1) + ' / ' + state.slides.length;
+
+    const code = state.slides[state.current].getAttribute('data-code');
+    if (codeEl) {
+      codeEl.textContent = code ? '🏷️ ' + code : '';
+      codeEl.style.display = code ? 'block' : 'none';
+    }
+
+    const aed = parseFloat(state.slides[state.current].getAttribute('data-aed'));
+    if (priceRowEl) {
+      if (!isNaN(aed)) {
+        const rs = Math.round(aed * EXCHANGE_RATE);
+        priceAedEl.textContent = aed;
+        priceRsEl.textContent = rs.toLocaleString('en-IN');
+        priceRowEl.style.display = 'flex';
+      } else {
+        priceRowEl.style.display = 'none';
+      }
+    }
+
+    startProgress();
+    pulseLogo();
+  }
+
+  function pulseLogo() {
+    if (!logoEl) return;
+    logoEl.classList.add('show');
+    clearTimeout(logoEl._hideTimer);
+    logoEl._hideTimer = setTimeout(() => logoEl.classList.remove('show'), 1300);
+  }
+
+  function nextSlide() { goTo(state.current + 1); resetAutoplay(); }
+  function prevSlide() { goTo(state.current - 1); resetAutoplay(); }
+
+  function startAutoplay() {
+    state.timer = setInterval(() => goTo(state.current + 1), AUTOPLAY_SECONDS * 1000);
+  }
+
+  function resetAutoplay() {
+    clearInterval(state.timer);
+    if (!state.isPaused) startAutoplay();
+  }
+
+  function togglePause() {
+    state.isPaused = !state.isPaused;
+    if (state.isPaused) {
+      clearInterval(state.timer);
+      const currentWidth = getComputedStyle(progressEl).width;
+      progressEl.style.transition = 'none';
+      progressEl.style.width = currentWidth;
+      pauseBtn.innerHTML = '&#9654;';
+    } else {
+      pauseBtn.innerHTML = '&#10074;&#10074;';
+      startAutoplay();
+      startProgress();
+    }
+  }
+
+  function startProgress() {
+    if (state.isPaused || !progressEl) return;
+    progressEl.style.transition = 'none';
+    progressEl.style.width = '0%';
+    setTimeout(() => {
+      progressEl.style.transition = 'width ' + AUTOPLAY_SECONDS + 's linear';
+      progressEl.style.width = '100%';
+    }, 30);
+  }
+
+  let touchStartX = 0;
+  sliderEl.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+  sliderEl.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) { diff > 0 ? nextSlide() : prevSlide(); }
+  });
+
+  init();
+
+  return { nextSlide, prevSlide, togglePause };
 }
 
-function startProgress() {
-  if (isPaused) return;
-  const bar = document.getElementById('progress');
-  bar.style.transition = 'none';
-  bar.style.width = '0%';
-  setTimeout(() => {
-    bar.style.transition = 'width ' + AUTOPLAY_SECONDS + 's linear';
-    bar.style.width = '100%';
-  }, 30);
-}
+let sliderKids, sliderLadies;
 
-// Mobile swipe
-let touchStartX = 0;
-document.getElementById('slider').addEventListener('touchstart', e => {
-  touchStartX = e.touches[0].clientX;
-});
-document.getElementById('slider').addEventListener('touchend', e => {
-  const diff = touchStartX - e.changedTouches[0].clientX;
-  if (Math.abs(diff) > 40) { diff > 0 ? nextSlide() : prevSlide(); }
-});
+window.addEventListener('load', () => {
+  sliderKids = createSlider({
+    sliderId: 'slider', dotsId: 'dots', counterId: 'counter', progressId: 'progress',
+    logoId: 'logoOverlay', priceRowId: 'priceRow', priceRsId: 'priceRs', priceAedId: 'priceAed',
+    pauseBtnId: 'pauseBtn', codeId: 'productCode', placeholderId: 'placeholder'
+  });
 
-window.addEventListener('load', init);
+  sliderLadies = createSlider({
+    sliderId: 'slider2', dotsId: 'dots2', counterId: 'counter2', progressId: 'progress2',
+    logoId: 'logoOverlay2', priceRowId: 'priceRow2', priceRsId: 'priceRs2', priceAedId: 'priceAed2',
+    pauseBtnId: 'pauseBtn2', codeId: 'productCode2', placeholderId: 'placeholder2'
+  });
+});
 
 </script>
 </body>
