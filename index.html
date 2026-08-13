@@ -513,6 +513,62 @@
   </a>
 </div>
 
+<div class="slider-section">
+  <p class="slider-label">Raw / Unstitched Fabric</p>
+
+  <div class="slider-wrap" id="slider3">
+
+    <!--
+    =====================================================
+    ADD RAW / UNSTITCHED FABRIC PHOTOS HERE (same pattern):
+
+       <img class="slide" src="Raw1.jpeg" alt="Raw Fabric" data-code="SIDRAW-3001" data-aed="140" />
+
+    Upload each raw-fabric photo to the same repo folder,
+    then add one line per photo below. Keep increasing the
+    data-code number (SIDRAW-3001, SIDRAW-3002, SIDRAW-3003...).
+    =====================================================
+    -->
+
+    <img class="slide" src="Raw1.jpeg" alt="Raw Fabric" data-code="SIDRAW-3001" data-aed="140" />
+    <img class="slide" src="Raw2.jpeg" alt="Raw Fabric" data-code="SIDRAW-3002" data-aed="160" />
+    <img class="slide" src="Raw3.jpeg" alt="Raw Fabric" data-code="SIDRAW-3003" data-aed="150" />
+
+    <div class="slide-placeholder" id="placeholder3">
+      <div class="icon">🧵</div>
+      <h3>Add Raw Fabric Photos</h3>
+      <p>Put your images in the same folder as this file, then add:<br/><br/>
+      <code>&lt;img class="slide" src="raw1.jpg" /&gt;</code><br/><br/>
+      inside this third slider section in the code.</p>
+    </div>
+
+    <button class="arrow left"  onclick="sliderRaw.prevSlide()">&#8249;</button>
+    <button class="arrow right" onclick="sliderRaw.nextSlide()">&#8250;</button>
+    <button class="pause-btn" id="pauseBtn3" onclick="sliderRaw.togglePause()">&#10074;&#10074;</button>
+    <div class="slide-counter" id="counter3" style="display:none">1 / 1</div>
+    <div class="progress-bar" id="progress3"></div>
+    <div class="logo-overlay" id="logoOverlay3"><img src="logo.png" alt="Logo" /></div>
+    <div class="product-code" id="productCode3" style="display:none"></div>
+  </div>
+
+  <div class="dots" id="dots3"></div>
+
+  <div class="price-row" id="priceRow3" style="display:none">
+    <div class="price-btn"><span class="price-label">Rs</span>&nbsp;<span id="priceRs3">0</span></div>
+    <div class="price-btn"><span class="price-label">AED</span>&nbsp;<span id="priceAed3">0</span></div>
+  </div>
+</div>
+
+<div class="cta-section">
+  <a class="wa-btn" href="https://wa.me/923328513653" target="_blank">
+    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.226 1.36.194 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M12.004 2.003c-5.522 0-10 4.478-10 10 0 1.764.464 3.42 1.276 4.855L2 22l5.29-1.253a9.958 9.958 0 0 0 4.714 1.198h.004c5.522 0 10-4.478 10-10s-4.478-9.942-10.004-9.942zm5.83 15.775a8.28 8.28 0 0 1-5.83 2.386 8.29 8.29 0 0 1-4.212-1.145l-.302-.18-3.14.744.752-3.11-.196-.318a8.246 8.246 0 0 1-1.256-4.4c0-4.575 3.723-8.297 8.334-8.297a8.28 8.28 0 0 1 5.85 2.427 8.24 8.24 0 0 1 2.427 5.85 8.29 8.29 0 0 1-2.427 5.043z"/>
+    </svg>
+    Chat with us on WhatsApp
+  </a>
+</div>
+
 <footer>
   <span>Boutique Al-Sidra</span> &nbsp;·&nbsp; Children &amp; Ladies Garments &nbsp;·&nbsp; All Rights Reserved
 </footer>
@@ -653,7 +709,7 @@ function createSlider(cfg) {
   return { nextSlide, prevSlide, togglePause };
 }
 
-let sliderKids, sliderLadies;
+let sliderKids, sliderLadies, sliderRaw;
 
 window.addEventListener('load', () => {
   sliderKids = createSlider({
@@ -666,6 +722,12 @@ window.addEventListener('load', () => {
     sliderId: 'slider2', dotsId: 'dots2', counterId: 'counter2', progressId: 'progress2',
     logoId: 'logoOverlay2', priceRowId: 'priceRow2', priceRsId: 'priceRs2', priceAedId: 'priceAed2',
     pauseBtnId: 'pauseBtn2', codeId: 'productCode2', placeholderId: 'placeholder2'
+  });
+
+  sliderRaw = createSlider({
+    sliderId: 'slider3', dotsId: 'dots3', counterId: 'counter3', progressId: 'progress3',
+    logoId: 'logoOverlay3', priceRowId: 'priceRow3', priceRsId: 'priceRs3', priceAedId: 'priceAed3',
+    pauseBtnId: 'pauseBtn3', codeId: 'productCode3', placeholderId: 'placeholder3'
   });
 });
 
